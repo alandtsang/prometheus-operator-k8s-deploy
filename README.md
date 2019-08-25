@@ -57,6 +57,11 @@ kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"templat
 
 ## Usage
 
+```
+$ git clone https://github.com/alandtsang/prometheus-operator-k8s-deploy.git
+$ cd prometheus-operator-k8s-deploy
+```
+
 Install the prometheus-operator, and namespace is monitoring.
 ```
 make install
