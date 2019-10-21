@@ -20,12 +20,7 @@ Client: &version.Version{SemVer:"v2.14.3", GitCommit:"0e7f3b6637f7af8fcfddb3d294
 Error: cannot connect to Tiller
 ```
 
-Install Tiller:
-```
-helm init --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.14.3 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
-```
-
-Create `rbac-config.yaml` file:
+Create `helm-rbac.yaml` file:
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -48,11 +43,12 @@ subjects:
 ```
 
 ```
-kubectl create -f rbac-config.yaml
+kubectl create -f helm-rbac.yaml
 ```
 
+Install Tiller:
 ```
-kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+helm init --history-max 200 --service-account tiller --tiller-image gcr.azk8s.cn/kubernetes-helm/tiller:v2.14.3 --stable-repo-url https://mirror.azure.cn/kubernetes/charts/
 ```
 
 ## Usage
